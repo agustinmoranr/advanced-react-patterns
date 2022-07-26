@@ -4,15 +4,15 @@
 import * as React from 'react'
 import {Switch} from '../switch'
 
-// 🐨 create your ToggleContext context here
+// 🐨 crea tu contexto ToggleContext aquí
 // 📜 https://reactjs.org/docs/context.html#reactcreatecontext
 
 function Toggle({children}) {
   const [on, setOn] = React.useState(false)
   const toggle = () => setOn(!on)
 
-  // 🐨 remove all this 💣 and instead return <ToggleContext.Provider> where
-  // the value is an object that has `on` and `toggle` on it.
+  // 🐨 elimina todo esto 💣 y en cambio retorna <ToggleContext.Provider value={value}> donde
+  // el valor "value" es un objeto que contiene `on` y `toggle` en el.
   return React.Children.map(children, child => {
     return typeof child.type === 'string'
       ? child
@@ -20,23 +20,23 @@ function Toggle({children}) {
   })
 }
 
-// 🐨 we'll still get the children from props (as it's passed to us by the
-// developers using our component), but we'll get `on` implicitly from
-// ToggleContext now
-// 🦉 You can create a helper method to retrieve the context here. Thanks to that,
-// your context won't be exposed to the user
+// 🐨 todavía obtendremos el valor de children desde los props
+//(ya que nos lo proporcionan los desarrolladores que utilizan nuestro componente),
+// pero ahora obtendremos `on` implicitamente desde nuestro ToggleContext
+// 🦉 Puedes crear un custom hook useToggle para obtener el contexto aquí. Gracias a eso,
+// tu contexto no va a ser expuesto al usuario.
 // 💰 `const context = React.useContext(ToggleContext)`
 // 📜 https://reactjs.org/docs/hooks-reference.html#usecontext
 function ToggleOn({on, children}) {
   return on ? children : null
 }
 
-// 🐨 do the same thing to this that you did to the ToggleOn component
+// 🐨 Haz los mismo que realizaste para el componente ToggleOn en este componente
 function ToggleOff({on, children}) {
   return on ? null : children
 }
 
-// 🐨 get `on` and `toggle` from the ToggleContext with `useContext`
+// 🐨 obten `on` y `toggle`de tu contexto ToggleContext utilizando `useContext`
 function ToggleButton({on, toggle, ...props}) {
   return <Switch on={on} onClick={toggle} {...props} />
 }
